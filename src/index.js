@@ -22,7 +22,7 @@ var APP_ID = undefined; //replace with "amzn1.echo-sdk-ams.app.[your-unique-valu
 /**
  * Top Hunts.
  */
-var top = "ABC, a description of ABC. DEF, a description of DEF. ";
+var top = "ABC, a description of ABC. And, DEF, a description of DEF. ";
 
 /**
  * The AlexaSkill prototype and helper functions
@@ -81,12 +81,11 @@ dailyHunt.prototype.intentHandlers = {
 };
 
 /**
- * Gets the 'top' string and return to the user.
+ * Get the 'top' string and return to the user.
  */
 function handleGetTopRequest(response) {
     // Create speech output
     var speechOutput = "Here are the top two products: " + top;
-
     response.tellWithCard(speechOutput, "dailyHunt", speechOutput);
 }
 
