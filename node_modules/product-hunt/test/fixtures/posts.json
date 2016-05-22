@@ -1,0 +1,80 @@
+{
+	"posts": [
+		{
+			"id": 62330,
+			"category_id": 1,
+			"slug": "li-st",
+			"user_id": 187835,
+			"name": "li.st",
+			"comment_count": 5,
+			"tagline": "Create lists about anything, by B.J. Novak & Devin Flaherty",
+			"topics": [
+				{
+					"id": 2,
+					"name": "Android",
+					"slug": "android",
+					"trending": false
+				},
+				{
+					"id": 8,
+					"name": "iPhone",
+					"slug": "iphone",
+					"trending": false
+				}
+			],
+			"created_at": "2016-05-11T11:10:05.558-07:00",
+			"featured_at": "2016-05-12T00:01:00.000-07:00",
+			"url": "/tech/li-st",
+			"shortened_url": "/r/611d59ec8d02e8/62330",
+			"vote_count": 51,
+			"product_state": "default",
+			"category": {
+				"has_upcoming": true,
+				"id": 1,
+				"slug": "tech",
+				"name": "Tech",
+				"item_name": "product",
+				"color": "#5898f1"
+			},
+			"exclusive": null,
+			"user": {
+				"id": 187835,
+				"username": "bjnovak",
+				"name": "B.J. Novak",
+				"headline": "",
+				"image_urls": {
+					"60": "https://ph-avatars.imgix.net/187835/original?auto=format&fit=crop&crop=faces&w=60&h=60",
+					"160": "https://ph-avatars.imgix.net/187835/original?auto=format&fit=crop&crop=faces&w=160&h=160"
+				},
+				"link": "/@bjnovak",
+				"avatar_url": "https://ph-avatars.imgix.net/187835/original?auto=format&fit=crop&crop=faces&w=160&h=160",
+				"is_maker": true
+			},
+			"thumbnail": {
+				"id": 163210,
+				"kindle_asin": null,
+				"media_type": "image",
+				"platform": null,
+				"video_id": null,
+				"url": null,
+				"image_url": "https://ph-files.imgix.net/c02512f1-525b-42a8-8737-10cee482368f?auto=format&fit=max&h=570&w=430"
+			},
+			"shortened_link": "611d59ec8d02e8",
+			"author": {
+			    "id": 187835,
+			    "username": "bjnovak",
+			    "name": "B.J. Novak",
+			    "headline": "",
+			    "image_urls": {
+					"60": "https://ph-avatars.imgix.net/187835/original?auto=format&fit=crop&crop=faces&w=60&h=60",
+					"160": "https://ph-avatars.imgix.net/187835/original?auto=format&fit=crop&crop=faces&w=160&h=160"
+			    },
+				"link": "/@bjnovak",
+				"avatar_url": "https://ph-avatars.imgix.net/187835/original?auto=format&fit=crop&crop=faces&w=160&h=160",
+				"is_maker": true
+			},
+			"category_slug": "tech",
+			"is_featured": true
+		}
+	]
+}

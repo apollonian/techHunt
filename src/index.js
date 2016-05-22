@@ -1,3 +1,4 @@
+'use strict';
 /**
     Copyright 2014-2015 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 
@@ -39,6 +40,40 @@ var dailyHunt = function () {
     AlexaSkill.call(this, APP_ID);
 };
 
+/** 
+ * Load the Product Hunt wrapper
+ * https://github.com/danillouz/product-hunt
+ */
+const productHunt = require('product-hunt');
+	
+/**
+ * Retrieve today's popular products 
+ */ 
+const request_today = productHunt
+	.today()
+	.popular();
+
+const getProductsPromise_today = request_today.exec()
+
+getProductsPromise_today
+	.then(function productsFetcher(products) {
+		console.log(products[0].name);
+	});
+
+/**
+ * Retrieve yesterday's popular products 
+ */
+const request_yesterday = productHunt
+	.yesterday()
+	.popular();
+
+const getProductsPromise_yesterday = request_yesterday.exec()
+
+getProductsPromise_yesterday
+	.then(function productsFetcher(products) {
+		console.log(products[0].name);
+	});
+    
 // Extend AlexaSkill
 dailyHunt.prototype = Object.create(AlexaSkill.prototype);
 dailyHunt.prototype.constructor = dailyHunt;
