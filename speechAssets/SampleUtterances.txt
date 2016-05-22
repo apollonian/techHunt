@@ -6,3 +6,4 @@ GetTopProductsIntent trending on product hunt
 GetTopProductsIntent top posts on product hunt
 GetTopProductsIntent top posts today on product hunt
 GetTopProductsIntent what's trending on product hunt
+GetTopProductsIntent what is trending on product hunt
