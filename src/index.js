@@ -11,7 +11,7 @@
 
 /**
  * One-shot model:
- *  User: "Alexa, what's trending on Product Hunt today?"
+ *  User: "Alexa, what's trending on Product Hunt?"
  *  Alexa: "Here are the top two products: ..."
  */
 
@@ -45,35 +45,48 @@ var dailyHunt = function () {
  * https://github.com/danillouz/product-hunt
  */
 const productHunt = require('product-hunt');
-	
+
 /**
  * Retrieve today's popular products 
  */ 
-const request_today = productHunt
-	.today()
-	.popular();
+const getProductsPromiseToday = productHunt.today().popular().exec()
 
-const getProductsPromise_today = request_today.exec()
+//TODO: Speak top 2 products or top 3?
 
-getProductsPromise_today
+var topProducts=[], today;
+getProductsPromiseToday
 	.then(function productsFetcher(products) {
-		
+		if(products==null){
+		    today=0;
+        	return;
+        }
+		var count=0, i=0;
+		while(count!=3){
+			if(products[i].category_id==1){
+				topProducts[i]=[products[i].name, products[i].tagline];
+				count++;
+			}
+			i++;
+		}
 	});
 
 /**
  * Retrieve yesterday's popular products 
  */
-const request_yesterday = productHunt
-	.yesterday()
-	.popular();
-
-const getProductsPromise_yesterday = request_yesterday.exec()
-
-getProductsPromise_yesterday
-	.then(function productsFetcher(products) {
-		
-	});
-    
+if(!today){
+    const getProductsPromise_yesterday = yesterday().popular().exec();
+    getProductsPromise_yesterday
+        .then(function productsFetcher(products) {
+        var count=0, i=0;
+		while(count!=3){
+			if(products[i].category_id==1){
+				topProducts[i]=[products[i].name, products[i].tagline];
+				count++;
+			}
+			i++;
+		}
+    });
+ }
 // Extend AlexaSkill
 dailyHunt.prototype = Object.create(AlexaSkill.prototype);
 dailyHunt.prototype.constructor = dailyHunt;
