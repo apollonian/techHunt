@@ -57,7 +57,7 @@ const getProductsPromise_today = request_today.exec()
 
 getProductsPromise_today
 	.then(function productsFetcher(products) {
-		console.log(products[0].name);
+		
 	});
 
 /**
@@ -71,7 +71,7 @@ const getProductsPromise_yesterday = request_yesterday.exec()
 
 getProductsPromise_yesterday
 	.then(function productsFetcher(products) {
-		console.log(products[0].name);
+		
 	});
     
 // Extend AlexaSkill
@@ -96,7 +96,7 @@ dailyHunt.prototype.eventHandlers.onSessionEnded = function (sessionEndedRequest
 };
 
 dailyHunt.prototype.intentHandlers = {
-    "GetNewFactIntent": function (intent, session, response) {
+    "GetTopProductsIntent": function (intent, session, response) {
         handleGetTopRequest(response);
     },
 
