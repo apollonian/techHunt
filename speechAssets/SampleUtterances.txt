@@ -1,5 +1,8 @@
 GetTopProductsIntent top hunts
+GetTopProductsIntent top posts
+GetTopProductsIntent daily hunt
 GetTopProductsIntent product hunt
+GetTopProductsIntent top products
 GetTopProductsIntent product hunt today
 GetTopProductsIntent trending product hunt
 GetTopProductsIntent trending on product hunt
