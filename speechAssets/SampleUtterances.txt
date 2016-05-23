@@ -6,7 +6,9 @@ GetTopProductsIntent top products
 GetTopProductsIntent product hunt today
 GetTopProductsIntent trending product hunt
 GetTopProductsIntent trending on product hunt
+GetTopProductsIntent daily hunt for top posts
 GetTopProductsIntent top posts on product hunt
+GetTopProductsIntent daily hunt for top products
 GetTopProductsIntent top posts today on product hunt
 GetTopProductsIntent what's trending on product hunt
 GetTopProductsIntent what is trending on product hunt

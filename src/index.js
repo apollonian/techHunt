@@ -1,11 +1,14 @@
 'use strict';
 
 /**
- *  Daily Hunt
- * 
+ *  Daily Hunt - Product Hunt on your favorite Alexa device! 
  * 
  *  One-shot model:
+ *  
  *  User: "Alexa, what's trending on Product Hunt?"
+ *  OR
+ *  User: "Alexa, ask Daily Hunt for top products."
+ *  
  *  Alexa: "Here are the top two products: ..."
  */
 
@@ -83,11 +86,26 @@ function handleGetTopRequest(response) {
      * Retrieve today's popular products 
      */
     const getProductsPromiseToday = productHunt.today().popular().exec();
-    var today = 1;
     getProductsPromiseToday
         .then(function productsFetcher(products) {
-            if (products == null) {
-                today = 0;
+            //Check if the response is empty
+            if (products.length == 0) {
+                const getProductsPromiseYesterday = productHunt.yesterday().popular().exec();
+                getProductsPromiseYesterday
+                    .then(function productsFetcher(products) {
+                        var count = 0,
+                            i = 0,
+                            topProducts = [];
+                        while (count != 3) {
+                            if (products[i].category_id == 1) {
+                                topProducts[i] = [products[i].name, products[i].tagline];
+                                count++;
+                            }
+                            i++;
+                        }
+                        var speechOutput = "Here are the top two products: " + topProducts[0][0] + topProducts[0][1] + " and " + topProducts[1][0] + topProducts[1][1];
+                        response.tellWithCard(speechOutput, "dailyHunt", speechOutput);
+                    });
                 return;
             }
             var count = 0,
@@ -103,24 +121,6 @@ function handleGetTopRequest(response) {
             var speechOutput = "Here are the top two products: " + topProducts[0][0] + topProducts[0][1] + " and " + topProducts[1][0] + topProducts[1][1];
             response.tellWithCard(speechOutput, "dailyHunt", speechOutput);
         });
-    if (!today) {
-        const getProductsPromiseYesterday = productHunt.yesterday().popular().exec();
-        getProductsPromiseYesterday
-            .then(function productsFetcher(products) {
-                var count = 0,
-                    i = 0,
-                    topProducts = [];
-                while (count != 3) {
-                    if (products[i].category_id == 1) {
-                        topProducts[i] = [products[i].name, products[i].tagline];
-                        count++;
-                    }
-                    i++;
-                }
-                var speechOutput = "Here are the top two products: " + topProducts[0][0] + topProducts[0][1] + " and " + topProducts[1][0] + topProducts[1][1];
-                response.tellWithCard(speechOutput, "dailyHunt", speechOutput);
-            });
-    }
 }
 
 // Create the handler that responds to the Alexa Request.
