@@ -1,5 +1,11 @@
+import codecs
 import json
 import requests
+
+
+def replace_spc_error_handler(err):
+    return (u' ' * (err.end-err.start), err.end)
+codecs.register_error("replace_space", replace_spc_error_handler)
 
 
 def lambda_handler(event, context):
@@ -127,21 +133,18 @@ def get_products(intent, session):
         'postman-token': "96253d08-c7b2-6cfd-45dc-dc7ddbb060cf"
     }
     response = requests.request("GET", url, headers=headers)
-    res = (response.text.encode('utf-8'))
+    res = (response.text.encode('ascii', errors='replace_space'))
     parsed_res = json.loads(res)
     len_posts = len(parsed_res['posts'])
     if len_posts > 0:
-        p1_name = parsed_res['posts'][0]['name']
-        p1_tagline = parsed_res['posts'][0]['tagline']
-        out = p1_name+", "+p1_tagline
+        prod_1 = parsed_res['posts'][0]['name']+", "+parsed_res['posts'][0]['tagline']+". "
+        out = prod_1
         if len_posts >= 2:
-            p2_name = parsed_res['posts'][1]['name']
-            p2_tagline = parsed_res['posts'][1]['tagline']
-            out = out+". "+ p2_name+", "+p2_tagline
+            prod_2 = parsed_res['posts'][1]['name']+", "+parsed_res['posts'][1]['tagline']+". "
+            out = out+prod_2
         if len_posts >= 3:
-            p3_name = parsed_res['posts'][2]['name']
-            p3_tagline = parsed_res['posts'][2]['tagline']
-            out = out+". "+ p3_name+", "+p3_tagline
+            prod_3 = parsed_res['posts'][2]['name']+", "+parsed_res['posts'][2]['tagline']+". "
+            out = out+prod_3
     if len_posts == 0:
         url = "http://api.producthunt.com/v1/categories/tech/posts"
         querystring = {
@@ -156,15 +159,12 @@ def get_products(intent, session):
             'postman-token': "f108f14e-bbe9-f20f-7a04-4ac67dd42d70"
         }
         response = requests.request("GET", url, headers=headers, params=querystring)
-        res = (response.text.encode('utf-8'))
+        res = (response.text.encode('ascii', errors='replace_space'))
         parsed_res = json.loads(res)
-        p1_name = parsed_res['posts'][0]['name']
-        p1_tagline = parsed_res['posts'][0]['tagline']
-        p2_name = parsed_res['posts'][1]['name']
-        p2_tagline = parsed_res['posts'][1]['tagline']
-        p3_name = parsed_res['posts'][2]['name']
-        p3_tagline = parsed_res['posts'][2]['tagline']
-        out = p1_name+", "+p1_tagline+". "+p2_name+", "+p2_tagline+". "+p3_name+", "+p3_tagline+". "
+        prod_1 = parsed_res['posts'][0]['name']+", "+parsed_res['posts'][0]['tagline']+". "
+        prod_2 = parsed_res['posts'][1]['name']+", "+parsed_res['posts'][1]['tagline']+". "
+        prod_3 = parsed_res['posts'][2]['name']+", "+parsed_res['posts'][2]['tagline']+"."
+        out = prod_1+prod_2+prod_3
     session_attributes = {}
     reprompt_text = None
     speech_output = "Here are the top tech hunts: " + out

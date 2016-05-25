@@ -1,1 +1,1 @@
-#Coming Soon
+#Daily Hunt - Alexa Product Hunt skill written in Python
