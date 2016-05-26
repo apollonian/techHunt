@@ -1,5 +1,7 @@
 # Tech Hunt - An Alexa skill for Product Hunt
 
+![Tech Hunt](http://apollonian.me/images/techhunt.png)
+
 ## Introduction
 
 With **Tech Hunt** Alexa skill you can discover trending technology products

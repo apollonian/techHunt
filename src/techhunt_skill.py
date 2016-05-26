@@ -4,6 +4,9 @@ import requests
 
 
 def replace_spc_error_handler(err):
+    """This fix replaces errors(question marks) by spaces during
+    encoding of the response
+    """
     return (u' ' * (err.end-err.start), err.end)
 codecs.register_error("replace_space", replace_spc_error_handler)
 
@@ -109,7 +112,7 @@ def get_welcome_response():
     """ For when the user doesn't specify the intent
     """
     session_attributes = {}
-    card_title = "Welcome"
+    card_title = "Welcome to Tech Hunt!"
     speech_output = "Welcome to Tech Hunt. " \
                     "You can say 'Ask Tech Hunt for top posts' to know " \
                     "today's top tech products. "
@@ -123,6 +126,9 @@ def get_welcome_response():
 
 
 def get_products(intent, session):
+    """Make a request to Product Hunt API and create a string 'out' that
+    contains the response with proper punctuations.
+    """
     url = "http://api.producthunt.com/v1/posts"
     headers = {
         'accept': "application/json",
@@ -133,7 +139,7 @@ def get_products(intent, session):
         'postman-token': "96253d08-c7b2-6cfd-45dc-dc7ddbb060cf"
     }
     response = requests.request("GET", url, headers=headers)
-    res = (response.text.encode('ascii', errors='replace_space'))
+    res = (response.text.encode('utf-8', errors='replace_space'))
     parsed_res = json.loads(res)
     len_posts = len(parsed_res['posts'])
     if len_posts > 0:
@@ -145,6 +151,7 @@ def get_products(intent, session):
         if len_posts >= 3:
             prod_3 = parsed_res['posts'][2]['name']+", "+parsed_res['posts'][2]['tagline']+". "
             out = out+prod_3
+    # Incase there are no products today display yesterday's top posts
     if len_posts == 0:
         url = "http://api.producthunt.com/v1/categories/tech/posts"
         querystring = {
@@ -159,7 +166,7 @@ def get_products(intent, session):
             'postman-token': "f108f14e-bbe9-f20f-7a04-4ac67dd42d70"
         }
         response = requests.request("GET", url, headers=headers, params=querystring)
-        res = (response.text.encode('ascii', errors='replace_space'))
+        res = (response.text.encode('utf-8', errors='replace_space'))
         parsed_res = json.loads(res)
         prod_1 = parsed_res['posts'][0]['name']+", "+parsed_res['posts'][0]['tagline']+". "
         prod_2 = parsed_res['posts'][1]['name']+", "+parsed_res['posts'][1]['tagline']+". "
@@ -174,6 +181,8 @@ def get_products(intent, session):
 
 
 def handle_session_end_request():
+    """When the session ends, say goodbye!
+    """
     card_title = "Tech Hunt Session Ended"
     speech_output = "Goodbye."
     # Setting should_end_session to true ends the session and exits the skill.
