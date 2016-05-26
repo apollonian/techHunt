@@ -1,28 +1,30 @@
-# Tech Hunt - An Alexa skill for Product Hunt written in Python
+# Tech Hunt - An Alexa skill for Product Hunt
 
 ## Introduction
 
 Tech Hunt provides a very simple voice interface to get today's trending 
-technology posts on Product Hunt.
+technology posts on Product Hunt.  
 
 [Go to the website](apollonian.me/techhunt)  
 [View on Hackster.io](www.hackster.io/)
 
 ## Interaction Model
 
-### Specified Intent
-_User_: Alexa, ask Tech Hunt for top posts  
-_Alexa_: Here are the top products:  
+#### Specified Intent
+_User_: Alexa, ask Tech Hunt for top posts.  
+_Alexa_: Here are the top products -     
   
-### Unspecified Intent
+#### Unspecified Intent
 
-_User_: Launch Tech Hunt  
+_User_: Launch Tech Hunt.  
 _Alexa_: Welcome to Tech Hunt. You can say 'Ask Tech Hunt for top posts' 
-to know today's top tech products.
+to know today's top tech products.  
+_User_: Alexa, ask Tech Hunt for top posts.   
+_Alexa_: Here are the top products -    
 
-## Submission Status
+## Installation and usage
 
-Under review
+Coming Soon
 
 ## Contribute
 
