@@ -2,14 +2,14 @@ import codecs
 import json
 import requests
 
-
+"""
 def replace_spc_error_handler(err):
-    """This fix replaces errors(question marks) by spaces during
-    encoding of the response
-    """
+    This fix replaces errors(question marks) by spaces during
+    encoding of the response. Defunct at the moment.
+    
     return (u' ' * (err.end-err.start), err.end)
 codecs.register_error("replace_space", replace_spc_error_handler)
-
+"""
 
 def lambda_handler(event, context):
     """ Route the incoming request based on type (LaunchRequest, IntentRequest,
@@ -42,8 +42,8 @@ def build_speechlet_response(title, output, reprompt_text, should_end_session):
         },
         'card': {
             'type': 'Simple',
-            'title': 'SessionSpeechlet - ' + title,
-            'content': 'SessionSpeechlet - ' + output
+            'title': title,
+            'content': output
         },
         'reprompt': {
             'outputSpeech': {
@@ -91,7 +91,7 @@ def on_intent(intent_request, session):
     if intent_name == "GetTopProductsIntent":
         return get_products(intent, session)
     elif intent_name == "AMAZON.HelpIntent":
-        return get_welcome_response()
+        return get_help()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
     else:
@@ -113,13 +113,12 @@ def get_welcome_response():
     """
     session_attributes = {}
     card_title = "Welcome to Tech Hunt!"
-    speech_output = "Welcome to Tech Hunt. " \
-                    "You can say 'Ask Tech Hunt for top posts' to know " \
-                    "today's top tech products. "
+    speech_output = "Tech Hunt helps you discover trending products " \
+                    "on Product Hunt. You can say 'top posts' " \
+                    "to know today's top tech hunts."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Say 'Ask Tech Hunt for top posts' to know " \
-                    "today's top tech products. "
+    reprompt_text = "Say 'top posts' or say 'quit'."
     should_end_session = False
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -139,7 +138,7 @@ def get_products(intent, session):
         'postman-token': "96253d08-c7b2-6cfd-45dc-dc7ddbb060cf"
     }
     response = requests.request("GET", url, headers=headers)
-    res = (response.text.encode('utf-8', errors='replace_space'))
+    res = (response.text.encode('ascii', errors='ignore'))
     parsed_res = json.loads(res)
     len_posts = len(parsed_res['posts'])
     if len_posts > 0:
@@ -149,7 +148,7 @@ def get_products(intent, session):
             prod_2 = parsed_res['posts'][1]['name']+", "+parsed_res['posts'][1]['tagline']+". "
             out = out+prod_2
         if len_posts >= 3:
-            prod_3 = parsed_res['posts'][2]['name']+", "+parsed_res['posts'][2]['tagline']+". "
+            prod_3 = parsed_res['posts'][2]['name']+", "+parsed_res['posts'][2]['tagline']+"."
             out = out+prod_3
     # Incase there are no products today display yesterday's top posts
     if len_posts == 0:
@@ -166,7 +165,7 @@ def get_products(intent, session):
             'postman-token': "f108f14e-bbe9-f20f-7a04-4ac67dd42d70"
         }
         response = requests.request("GET", url, headers=headers, params=querystring)
-        res = (response.text.encode('utf-8', errors='replace_space'))
+        res = (response.text.encode('ascii', errors='ignore'))
         parsed_res = json.loads(res)
         prod_1 = parsed_res['posts'][0]['name']+", "+parsed_res['posts'][0]['tagline']+". "
         prod_2 = parsed_res['posts'][1]['name']+", "+parsed_res['posts'][1]['tagline']+". "
@@ -179,11 +178,23 @@ def get_products(intent, session):
     return build_response(session_attributes, build_speechlet_response(
         "Top Hunts", speech_output, reprompt_text, should_end_session))
 
+def get_help():
+    """Incase of HelpIntent
+    """
+    session_attributes = {}
+    card_title = "Getting started with Tech Hunt"
+    speech_output = "You can say 'top posts' once you've launched the skill'.. " \
+                    "or you can even directly say 'Ask Tech Hunt for top posts' " \
+                    "without opening Tech Hunt."
+    reprompt_text = "Say 'top posts' or say 'quit'."
+    should_end_session = False
+    return build_response(session_attributes, build_speechlet_response(
+        card_title, speech_output, reprompt_text, should_end_session))
 
 def handle_session_end_request():
     """When the session ends, say goodbye!
     """
-    card_title = "Tech Hunt Session Ended"
+    card_title = "Thanks for using Tech Hunt!"
     speech_output = "Goodbye."
     # Setting should_end_session to true ends the session and exits the skill.
     should_end_session = True
