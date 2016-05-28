@@ -7,8 +7,7 @@
 With **Tech Hunt** Alexa skill you can discover trending technology products
 on Product Hunt from your favorite Amazon Alexa enabled device.  
 
-+ [Go to the website](http://apollonian.me/techhunt)  
-+ [View on Hackster.io](http://www.hackster.io/)
++ [Go to the website](http://apollonian.me/techhunt)
 
 ## Included Files
 
@@ -28,12 +27,12 @@ Comixology Unlimited, Explore 1000s of digital comics & manga for $5.99/month
    
 #### Unspecified Intent
 
->_User_: Launch Tech Hunt.
+>_User_: Open Tech Hunt.
   
-> _Alexa_: Welcome to Tech Hunt. You can say 'Ask Tech Hunt for top posts' 
-to know today's top tech products.  
+> _Alexa_: Tech Hunt helps you discover trending products on Product Hunt. 
+You can say 'top posts' to know today's top tech hunts.  
 
-> _User_: Alexa, ask Tech Hunt for top posts.   
+> _User_: Top posts   
 
 > _Alexa_: Here are the top tech hunts -  
 Unfade, Scan your old printed photos and bring them back to life.  
@@ -44,10 +43,6 @@ Comixology Unlimited, Explore 1000s of digital comics & manga for $5.99/month
 
 You can run this using AWS Lambda. More on that coming soon.
 
-## Submission Status
-
-Currently under review.
-
 ## Contribute
 
 Make Tech Hunt better!  
@@ -55,4 +50,4 @@ Send a [pull](https://github.com/apollonian11/techhunt/compare) request or open 
 
 ## Hugs
 
-API code generated using [Postman](https://www.getpostman.com/) 
++ [Postman](https://www.getpostman.com/) 
