@@ -135,7 +135,6 @@ def get_products(intent, session):
         'authorization': "Bearer a9dd8cfa36636e1befe06cd3056b746c67bcacf5453deb07c890e85861152b46",
         'host': "api.producthunt.com",
         'cache-control': "no-cache",
-        'postman-token': "96253d08-c7b2-6cfd-45dc-dc7ddbb060cf"
     }
     response = requests.request("GET", url, headers=headers)
     res = (response.text.encode('ascii', errors='ignore'))
@@ -162,7 +161,6 @@ def get_products(intent, session):
             'authorization': "Bearer a9dd8cfa36636e1befe06cd3056b746c67bcacf5453deb07c890e85861152b46",
             'host': "api.producthunt.com",
             'cache-control': "no-cache",
-            'postman-token': "f108f14e-bbe9-f20f-7a04-4ac67dd42d70"
         }
         response = requests.request("GET", url, headers=headers, params=querystring)
         res = (response.text.encode('ascii', errors='ignore'))
