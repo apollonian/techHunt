@@ -18,7 +18,7 @@ on Product Hunt from your favorite Amazon Alexa enabled device.
 ## Interaction Model
 
 #### Specified Intent
-> _User_: Alexa, ask Tech Hunt for top posts.  
+> _User_: Alexa, ask Tech Hunt for top products.  
 
 > _Alexa_: Here are the top tech hunts -  
 Unfade, Scan your old printed photos and bring them back to life.  

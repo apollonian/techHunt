@@ -18,9 +18,9 @@ def lambda_handler(event, context):
     print("event.session.application.applicationId=" +
           event['session']['application']['applicationId'])
 
-    if (event['session']['application']['applicationId'] !=
-            "amzn1.echo-sdk-ams.app.d012cc18-478b-44e3-9f9d-992c47282e55"):
-        raise ValueError("Invalid Application ID")
+    #if (event['session']['application']['applicationId'] !=
+    #        ""):
+    #    raise ValueError("Invalid Application ID")
 
     if event['session']['new']:
         on_session_started({'requestId': event['request']['requestId']},
@@ -132,7 +132,7 @@ def get_products(intent, session):
     headers = {
         'accept': "application/json",
         'content-type': "application/json",
-        'authorization': "Bearer a9dd8cfa36636e1befe06cd3056b746c67bcacf5453deb07c890e85861152b46",
+        'authorization': "Bearer ",
         'host': "api.producthunt.com",
         'cache-control': "no-cache",
     }
@@ -158,7 +158,7 @@ def get_products(intent, session):
         headers = {
             'accept': "application/json",
             'content-type': "application/json",
-            'authorization': "Bearer a9dd8cfa36636e1befe06cd3056b746c67bcacf5453deb07c890e85861152b46",
+            'authorization': "Bearer ",
             'host': "api.producthunt.com",
             'cache-control': "no-cache",
         }
