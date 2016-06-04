@@ -7,8 +7,6 @@
 With **Tech Hunt** Alexa skill you can discover trending technology products
 on Product Hunt from your favorite Amazon Alexa enabled device.  
 
-+ [Go to the website](http://apollonian.me/techhunt)
-
 ## Included Files
 
 + src/techhunt_skill.py - lambda function  
