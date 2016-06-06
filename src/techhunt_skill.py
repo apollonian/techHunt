@@ -1,12 +1,9 @@
-import codecs
 import json
 import requests
 
 """
+import codecs
 def replace_spc_error_handler(err):
-    This fix replaces errors(question marks) by spaces during
-    encoding of the response. Defunct at the moment.
-    
     return (u' ' * (err.end-err.start), err.end)
 codecs.register_error("replace_space", replace_spc_error_handler)
 """
@@ -128,16 +125,20 @@ def get_products(intent, session):
     """Make a request to Product Hunt API and create a string 'out' that
     contains the response with proper punctuations.
     """
-    url = "http://api.producthunt.com/v1/posts"
+    url_today = "http://api.producthunt.com/v1/posts"
+    url_yesterday = "http://api.producthunt.com/v1/categories/tech/posts"
+    querystring = {
+        "days_ago": "1"
+    }
     headers = {
         'accept': "application/json",
         'content-type': "application/json",
         'authorization': "Bearer ",
         'host': "api.producthunt.com",
-        'cache-control': "no-cache",
+        'cache-control': "no-cache"
     }
-    response = requests.request("GET", url, headers=headers)
-    res = (response.text.encode('ascii', errors='ignore'))
+    response_today = requests.request("GET", url_today, headers=headers)
+    res = (response_today.text.encode('ascii', errors='ignore'))
     parsed_res = json.loads(res)
     len_posts = len(parsed_res['posts'])
     if len_posts > 0:
@@ -151,19 +152,8 @@ def get_products(intent, session):
             out = out+prod_3
     # Incase there are no products today display yesterday's top posts
     if len_posts == 0:
-        url = "http://api.producthunt.com/v1/categories/tech/posts"
-        querystring = {
-            "days_ago": "1"
-        }
-        headers = {
-            'accept': "application/json",
-            'content-type': "application/json",
-            'authorization': "Bearer ",
-            'host': "api.producthunt.com",
-            'cache-control': "no-cache",
-        }
-        response = requests.request("GET", url, headers=headers, params=querystring)
-        res = (response.text.encode('ascii', errors='ignore'))
+        response_yesterday = requests.request("GET", url_yesterday, headers=headers, params=querystring)
+        res = (response_yesterday.text.encode('ascii', errors='ignore'))
         parsed_res = json.loads(res)
         prod_1 = parsed_res['posts'][0]['name']+", "+parsed_res['posts'][0]['tagline']+". "
         prod_2 = parsed_res['posts'][1]['name']+", "+parsed_res['posts'][1]['tagline']+". "
