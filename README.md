@@ -1,4 +1,4 @@
-# Tech Hunt - An Alexa skill for Product Hunt
+# Tech Hunt - A Product Hunt Alexa skill
 
 ![Tech Hunt](http://apollonian.me/images/techhunt.png)
 
